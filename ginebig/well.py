@@ -1,14 +1,14 @@
-""" 
+"""
 Well class for the Ginebig project.
 """
 import numpy
-import analytic_element
+from ginebig.analytic_element import AnalyticElement
 
 
-class Well(analytic_element.AnalyticElement):
-    
+class Well(AnalyticElement):
+
     # --------------------------------------------------------------------------
-    def __init__(self, z: complex, Q, r):
+    def __init__(self, z: complex, Q: float, r: float):
         """
         Intialize the attributes without validating.
         """
@@ -17,15 +17,15 @@ class Well(analytic_element.AnalyticElement):
         self.r = r
 
     # --------------------------------------------------------------------------
-    def complex_potential(self, z: complex) -> complex:
+    def potential(self, z: complex) -> complex:
         """
             Return the well's contribution to the complex potential
             at location z, $\Omnega(z)$.
         """
         return complex(math.nan, math.nan)
-    
+
     # --------------------------------------------------------------------------
-    def complex_discharge(self, z: complex) -> complex:
+    def discharge(self, z: complex) -> complex:
         """
         Return the well's contribution to the complex discharge
         at location z, $\W(z)$.
@@ -33,28 +33,21 @@ class Well(analytic_element.AnalyticElement):
         return complex(math.nan, math.nan)
 
     # --------------------------------------------------------------------------
-    def accretion(self):
-        """
-        Return the Well's accretion at location z.
-        """
-        return math.nan
-
-    # --------------------------------------------------------------------------
     def total_discharge(self):
         """
         Return the well's total discharge from the aquifer.
         """
-        raise NotImplementedError('Method "total_discharge" must be implemented.')
+        return 0
 
     # --------------------------------------------------------------------------
-    def domegadp(self, z: complex) -> complex:
+    def jacobian_potential(self, z: complex) -> complex:
         """
         Return the well's $dOmega/dP$ at location z.
         """
         return complex(math.nan, math.nan)
 
     # --------------------------------------------------------------------------
-    def dwdp(self, z: complex) -> complex:
+    def jacobian_discharge(self, z: complex) -> complex:
         """
         Return the well's $dW/dP$ at location z.
         """

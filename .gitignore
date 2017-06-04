@@ -41,6 +41,9 @@ docs/_build/*
 cover/*
 MANIFEST
 
+# Wing user-specific project data
+*.wpu
+
 # MikTeX/LaTeX intermediate files
 *.aux
 *.bbl

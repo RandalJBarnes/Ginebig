@@ -1,0 +1,204 @@
+%==============================================================================
+% Preamble                                                          (04-Mar-17)
+%==============================================================================
+\NeedsTeXFormat{LaTeX2e}[2011/06/27]
+\documentclass[12pt]{article}
+
+%------------------------------------------------------------------------------
+% Packages
+%------------------------------------------------------------------------------
+\usepackage[english]{babel}
+\usepackage[reqno,intlimits,sumlimits,centertags]{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{eulervm}
+\usepackage{fancyhdr}
+\usepackage[plain]{fancyref}
+\usepackage{fancyvrb}
+\usepackage{natbib}
+\usepackage{expdlist}
+\usepackage[pdftex]{graphicx}
+%\usepackage[hyphenbreaks]{breakurl}
+\usepackage[hyphens]{url}
+\usepackage{framed}
+\usepackage{bold-extra}
+\usepackage{color}
+
+%------------------------------------------------------------------------------
+% Misc.
+%------------------------------------------------------------------------------
+\vfuzz2pt       % Don't report over-full v-boxes if over-edge is small
+\hfuzz2pt       % Don't report over-full h-boxes if over-edge is small
+
+%\numberwithin{equation}{section}
+
+%==============================================================================
+% Macros
+%==============================================================================
+
+%------------------------------------------------------------------------------
+% Misc Commands
+%------------------------------------------------------------------------------
+%\newfont{\ISS}{cmssi10}
+
+\DefineVerbatimEnvironment{code}{Verbatim}{fontsize=\small}
+\DefineVerbatimEnvironment{boxedcode}{Verbatim}{fontsize=\small,frame=single,framesep=2mm,framerule=0.5mm}
+
+\newcommand{\uL}{\mathcal L}
+\newcommand{\uT}{\mathcal T}
+\newcommand{\uM}{\mathcal M}
+\newcommand{\uD}{\mathcal D}
+
+\newcommand{\degC}[1]{\ensuremath{#1^{\circ}\mathrm{C}}}
+\newcommand{\degF}[1]{\ensuremath{#1^{\circ}\mathrm{F}}}
+
+\newcommand{\matlab}{\textsc{Matlab}}
+
+%------------------------------------------------------------------------------
+% Misc Math
+%------------------------------------------------------------------------------
+\newcommand{\minimize}[1]{\operatornamewithlimits{minimize}_{#1}}
+\newcommand{\Minimize}[1]{\operatornamewithlimits{Minimize}_{#1}}
+
+\newcommand{\minimum}[1]{\operatornamewithlimits{minimum}_{#1}}
+\newcommand{\maximum}[1]{\operatornamewithlimits{maximum}_{#1}}
+
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\bigo}[1]{\mathcal{O}\!\left(#1\right)}
+
+\providecommand{\sgn}[1]{\operatorname{sgn}\!\left(#1\right)}
+\providecommand{\odd}[1]{\operatorname{odd}\!\left(#1\right)}
+\providecommand{\even}[1]{\operatorname{even}\!\left(#1\right)}
+
+\providecommand{\jump}[1]{\left\lceil #1 \right\rfloor}
+\providecommand{\pval}[1]{\left< #1 \right>}
+
+\newcommand{\onehalf}{\textstyle \frac{1}{2} \displaystyle}
+
+\renewcommand{\min}[1]{\operatorname{min}\!\left(#1\right)}
+\renewcommand{\max}[1]{\operatorname{max}\!\left(#1\right)}
+
+\renewcommand{\arraystretch}{1.25}
+\setcounter{MaxMatrixCols}{20}
+
+
+%------------------------------------------------------------------------------
+% Complex variable commands
+%------------------------------------------------------------------------------
+\newcommand{\conjg}[1]{\overline{#1}}
+\newcommand{\conj}[1]{\overline{#1}}
+
+\providecommand{\Real}[1]{\ensuremath{\Re{\left\{#1\right\}}}}
+\providecommand{\Imag}[1]{\ensuremath{\Im{\left\{#1\right\}}}}
+
+\providecommand{\imag}[1]{\operatorname{imag}\!\left\{#1\right\}}
+\providecommand{\real}[1]{\operatorname{real}\!\left\{#1\right\}}
+
+%------------------------------------------------------------------------------
+% Calculus commands
+%------------------------------------------------------------------------------
+\providecommand{\deriv}[2]{\frac{\mathinner{d#1}}{\mathinner{d#2}}}
+\providecommand{\dderiv}[2]{\frac{\mathinner{d^2#1}}{\mathinner{d#2^2}}}
+\providecommand{\ddderiv}[2]{\frac{\mathinner{d^3#1}}{\mathinner{d#2^3}}}
+\providecommand{\nderiv}[3]{\frac{\mathinner{d^{#3}#1}}{\mathinner{d#2^{#3}}}}
+\providecommand{\pderiv}[2]{\frac{\mathinner{\partial#1}}{\mathinner{\partial#2}}}
+\providecommand{\ppderiv}[2]{\frac{\mathinner{\partial^2#1}}{\mathinner{\partial#2^2}}}
+\providecommand{\pppderiv}[2]{\frac{\mathinner{\partial^3#1}}{\mathinner{\partial#2^3}}}
+\providecommand{\ppppderiv}[2]{\frac{\mathinner{\partial^4#1}}{\mathinner{\partial#2^4}}}
+\providecommand{\pqderiv}[3]{\frac{\mathinner{\partial^2#1}}{\mathinner{\partial#2\partial#3}}}
+\providecommand{\ppqderiv}[3]{\frac{\mathinner{\partial^3#1}}{\mathinner{\partial#2^2 \partial#3}}}
+\providecommand{\ppqqderiv}[3]{\frac{\mathinner{\partial^4#1}}{\mathinner{\partial#2^2 \partial#3^2}}}
+
+%------------------------------------------------------------------------------
+% Matrix/Vector commands
+%------------------------------------------------------------------------------
+\DeclareMathAlphabet{\mathmat}{OT1}{cmss}{bx}{n}
+\newcommand{\mat}[1]{\mathmat{#1}}
+
+\newcommand{\eye}{\ensuremath{{\mathbf{I}}}}
+
+\newcommand{\ve}[1]{\ensuremath{\text{\textbf{\textit{vec}}}\negmedspace\left(#1\right)}}
+\newcommand{\tr}[1]{\ensuremath{\text{\textbf{\textit{tr}}}\negmedspace\left(#1\right)}}
+
+%------------------------------------------------------------------------------
+% Statistics commands
+%------------------------------------------------------------------------------
+\newcommand{\ev}[1]{\ensuremath{\text{\textbf{\textit{E}}}\negmedspace\left(#1\right)}}
+\newcommand{\std}[1]{\ensuremath{\text{\textbf{\textit{Std}}}\negmedspace\left(#1\right)}}
+\newcommand{\var}[1]{\ensuremath{\text{\textbf{\textit{Var}}}\negmedspace\left(#1\right)}}
+\newcommand{\cov}[1]{\ensuremath{\text{\textbf{\textit{Cov}}}\negmedspace\left(#1\right)}}
+\newcommand{\pr}[1]{\ensuremath{\text{\textbf{\textit{Pr}}}\negmedspace\left(#1\right)}}
+
+\newcommand{\erf}{\operatorname{erf}}
+\newcommand{\erfc}{\operatorname{erfc}}
+
+%------------------------------------------------------------------------------
+% Indent paragraph left and right
+%------------------------------------------------------------------------------
+\newenvironment{inmargins}[1]
+{\begin{list}{}{\leftmargin=#1 \rightmargin=#1 \parsep=0pt \partopsep=0pt}\item[]}{\end{list}}
+
+%------------------------------------------------------------------------------
+% The general "SCRIPT" macro for groundwater presentations.
+%
+%                    5
+%                   111   4
+%                  1111
+%                   111
+%                   111
+%                  11111  3
+%                    2
+%
+% Written by: Dr. Igor Jankovic.
+%------------------------------------------------------------------------------
+\newcommand{\Script}[5]
+{
+   {\overset{#5}{\underset{#2}{#1}}}\vphantom{#1}^{#4}_{#3}
+}
+
+%==============================================================================
+% Page layout
+%==============================================================================
+%------------------------------------------------------------------------------
+%  Define the page dimensions.
+%------------------------------------------------------------------------------
+\setlength{\hoffset}{0.0in}
+\setlength{\oddsidemargin}{0.0in}
+\setlength{\evensidemargin}{0.0in}
+\setlength{\textwidth}{6.5in}
+
+\setlength{\voffset}{-0.5in}
+\setlength{\topmargin}{-0.25in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{25pt}
+\setlength{\textheight}{9.5in}
+
+\renewcommand{\baselinestretch}{1.0}
+
+%------------------------------------------------------------------------------
+%  Define the page headers.
+%------------------------------------------------------------------------------
+\pagestyle{fancy}
+
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\fancypagestyle{plain}
+{
+    \fancyhead{}
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+\lhead{\scriptsize}
+\chead{\scriptsize}
+\rhead{\scriptsize}
+\lfoot{\scriptsize}
+\cfoot{\scriptsize}
+\rfoot{\scriptsize}
+
+%------------------------------------------------------------------------------
+% Terminate the input file
+%------------------------------------------------------------------------------
+\endinput 
