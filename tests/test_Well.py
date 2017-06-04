@@ -1,4 +1,5 @@
 import unittest
+from ginebig.analytic_element import AnalyticElement
 from ginebig.well import Well
 
 class TestWell(unittest.TestCase):
@@ -6,23 +7,17 @@ class TestWell(unittest.TestCase):
 
     # preparing to test
     def setUp(self):
-        print("TestWellsetUp_:begin")
-        ## do something...
-        print("TestWell:setUp_:end")
+        pass
 
     # ending the test
     def tearDown(self):
-        print("TestWelltearDown_:begin")
-        ## do something...
-        print("TestWell:tearDown_:end")
+        pass
 
     # test routine A
     def test_construction(self):
-        """Test routine A"""
-        print("TestWell:testA")
-        #w = Well()
-        #assertIsInstance(w, 'AnalyticElement')
-        #assertIsInstance(w, 'Well')
+        w = Well(1,2,3)
+        self.assertIsInstance(w, AnalyticElement)
+        self.assertIsInstance(w, Well)
 
     # test routine B
     def test_B(self):
