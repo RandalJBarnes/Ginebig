@@ -2,18 +2,22 @@
 Well class for the Ginebig project.
 """
 import numpy
+import math
 from ginebig.analytic_element import AnalyticElement
 
 
 class Well(AnalyticElement):
 
     # --------------------------------------------------------------------------
-    def __init__(self, z: complex, Q: float, r: float):
+    def __init__(self, z: complex, q: float, r: float):
         """
         Intialize the attributes without validating.
+
+        Arguments:
+
         """
         self.z = z
-        self.Q = Q
+        self.q = q
         self.r = r
 
     # --------------------------------------------------------------------------
@@ -22,7 +26,7 @@ class Well(AnalyticElement):
             Return the well's contribution to the complex potential
             at location z, $\Omnega(z)$.
         """
-        return complex(math.nan, math.nan)
+        return complex(0, 0)
 
     # --------------------------------------------------------------------------
     def discharge(self, z: complex) -> complex:
@@ -51,4 +55,4 @@ class Well(AnalyticElement):
         """
         Return the well's $dW/dP$ at location z.
         """
-        return complex(math.nan,math.nan)
+        return complex(math.nan, math.nan)

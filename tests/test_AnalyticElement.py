@@ -1,22 +1,20 @@
 import unittest
 from ginebig.analytic_element import AnalyticElement
 
+
 class TestAnalyticElement(unittest.TestCase):
     """Test the AnalyticElement class."""
 
-    # preparing to test
-    def setUp(self):
-        pass
+    # --------------------------------------------------------------------------
+    def test_cannot_instantiate(self):
+        """Test cannot instantiate an AnalyticElement."""
+        try:
+            AnalyticElement()
+        except TypeError:
+            pass
+        else:
+            self.fail('Did not catch the TypeError.')
 
-    # test routine A
-    def test_A(self):
-        """Test routine A"""
-        print("TestAnalyticElement:testA")
-
-    # test routine B
-    def test_B(self):
-        """Test routine B"""
-        print("TestAnalyticElement:testB")
 
 if __name__ == '__main__':
     unittest.main()
