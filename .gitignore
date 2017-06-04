@@ -40,3 +40,9 @@ docs/api/*
 docs/_build/*
 cover/*
 MANIFEST
+
+# MikTeX/LaTeX intermediate files
+*.aux
+*.bbl
+*.blg
+*.synctex

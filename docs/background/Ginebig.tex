@@ -1,0 +1,80 @@
+\input{Preamble.tex}
+
+\newcommand{\ginebig}{{\textsf{G\raisebox{-0.3ex}{i}\raisebox{0.3ex}{n}\raisebox{-0.3ex}{e}big}}}
+
+\lhead{\scriptsize Barnes}
+\chead{\scriptsize}
+\rhead{\scriptsize \thepage}
+
+\lfoot{\scriptsize \ginebig{} User's Guide and Manual}
+\cfoot{\scriptsize}
+\rfoot{\scriptsize Version: \today}
+
+
+%******************************************************************************
+\begin{document}
+%******************************************************************************
+
+%==============================================================================
+% Title block information
+%==============================================================================
+\title{\ginebig{}: A Single-layer AEM Library Using Python}
+
+\author{
+Dr. Randal J. Barnes\\
+Department of Civil Engineering\\
+University of Minnesota
+}
+
+\date{Draft: \today}
+
+\maketitle
+
+\thispagestyle{plain}
+
+
+%==============================================================================
+\section{Introduction}
+%==============================================================================
+
+
+
+
+\appendix
+\newpage
+%==============================================================================
+\section{Code Naming Conventions}
+%==============================================================================
+The following is extracted from ``PEP 8 -- Style Guide for Python Code''.
+
+\begin{description}
+    \item [function names] Function names should be lowercase, with words separated by underscores as necessary to improve readability.
+
+    \item [instance variables] Use the function naming rules: lowercase with words separated by underscores as necessary to improve readability.
+
+    \item [method names] Use the function naming rules: lowercase with words separated by underscores as necessary to improve readability.
+
+    \item [class names] Class names should normally use the {\tt CapWords} (aka {\tt UpperCamelCase}) convention.
+
+    \item [package names] Python packages should also have short, all-lowercase names, although the use of underscores is discouraged.
+
+    \item [module names] Modules should have short, all-lowercase names. Underscores can be used in the module name if it improves readability.
+
+    \item [exception names] Because exceptions should be classes, the class naming convention applies here. However, you should use the suffix "Error" on your exception names (if the exception actually is an error).
+
+    \item [constants] Constants are usually defined on a module level and written in all capital letters with underscores separating words. Examples include {\tt MAX\_OVERFLOW} and {\tt TOTAL}.
+
+    \item [function arguments] Always use {\tt self} for the first argument to instance methods.
+
+    \item [method arguments] Always use {\tt cls} for the first argument to class methods.
+
+
+\end{description}
+
+
+
+
+
+%******************************************************************************
+\end{document}
+%******************************************************************************
