@@ -2,13 +2,13 @@
 Ginebig
 =======
 
-Ginebig is a steady-state, single-layer, object-oriented AEM framework.
+A single-layer, steady-state, object-oriented, Analytic Element-based groundwater modeling framework.
 
 
 Description
 ===========
 
-Ginebig is a steady-state, single-layer, object-oriented AEM framework.
+A single-layer, steady-state, object-oriented, Analytic Element-based groundwater modeling framework.
 
 
 Notes
