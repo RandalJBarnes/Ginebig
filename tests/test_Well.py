@@ -1,5 +1,6 @@
 import unittest
 import cmath
+import numpy
 from ginebig.analytic_element import AnalyticElement
 from ginebig.well import Well
 
@@ -64,22 +65,50 @@ class TestWell(unittest.TestCase):
     # --------------------------------------------------------------------------
     def test_abstraction(self):
         """Test abstraction."""
-        assert(False)
+
+        zo = complex(10, 10)
+        we = Well(zo, 2*cmath.pi, 1)
+
+        ab_true = 2*cmath.pi
+        ab = Well.abstraction(we)
+        self.assertAlmostEqual(ab, ab_true)
 
     # --------------------------------------------------------------------------
     def test_divergence_discharge(self):
         """Test divergence discharge."""
-        assert(False)
+
+        zo = complex(10, 10)
+        we = Well(zo, 2*cmath.pi, 1)
+
+        z = complex(10, 20)
+        div = Well.divergence_discharge(we, z)
+        self.assertAlmostEqual(div, float(0))
+
+        z = zo
+        div = Well.divergence_discharge(we, z)
+        self.assertTrue(cmath.isnan(div))
 
     # --------------------------------------------------------------------------
     def test_jacobian_potential(self):
         """Test jacobian potential."""
-        assert(False)
+
+        zo = complex(10, 10)
+        we = Well(zo, 2*cmath.pi, 1)
+
+        z = complex(10, 20)
+        jac = Well.jacobian_discharge(we, z)
+        self.assertTrue(numpy.size(jac) == 0)
 
     # --------------------------------------------------------------------------
     def test_jacobian_discharge(self):
         """Test jacobian discharge."""
-        assert(False)
+
+        zo = complex(10, 10)
+        we = Well(zo, 2*cmath.pi, 1)
+
+        z = complex(10, 20)
+        jac = Well.jacobian_discharge(we, z)
+        self.assertTrue(numpy.size(jac) == 0)
 
 
 if __name__ == '__main__':
