@@ -9,14 +9,6 @@ from ginebig.well import Well, InvalidRadiusError
 class TestWell(unittest.TestCase):
     """Test the Well class."""
 
-    # preparing to test
-    def setUp(self):
-        pass
-
-    # ending the test
-    def tearDown(self):
-        pass
-
     # --------------------------------------------------------------------------
     def test_construction(self):
         """Test constructor."""

@@ -1,14 +1,13 @@
 """
-Well class for the Ginebig project.
+UniformFlow class for the Ginebig project.
 
 Raises:
-    well.Error: Base class for all exceptions raised by this module.
-    well.InvalidRadiusError: The specified well radius was not strictly
-        positive.
+    uniform_flow.Error: Base class for all exceptions raised by this module.
 """
 
 import cmath
 import numpy
+
 from ginebig.analytic_element import AnalyticElement
 
 __version__ = '05 June 2017'
@@ -19,45 +18,36 @@ class Error(Exception):
     """Base class for all exceptions raised by this module."""
 
 
-class InvalidRadiusError(Error):
-    """The specified well radius was not strictly positive."""
-
-
 # ------------------------------------------------------------------------------
-class Well(AnalyticElement):
+class UniformFlow(AnalyticElement):
 
     # --------------------------------------------------------------------------
-    def __init__(self, z: complex, Q: float, r: float):
+    def __init__(self, Qo: float, alpha: float):
         """
         Intialize the attributes with minimal validation.
 
         Arguments:
-           z (complex): 'little z' world coordinate location [L].
-           Q (float): well discharge [L^3/T].
-           r (float): well radius [L].
+           Qo (float): magnitude of the uniform flow [L^2/T].
+           alpha (float): direction of the uniform flow [rad].
 
         """
-        if r < numpy.finfo(float).eps:
-            raise InvalidRadiusError
-
-        self.z = z
-        self.Q = Q
-        self.r = r
+        self.Qo = Qo
+        self.alpha = alpha
 
     # --------------------------------------------------------------------------
     def __repr__(self):
-        return 'Well({0.z!r},{0.Q!r},{0.r!r})'.format(self)
+        return 'UniformFlow({0.Qo!r},{0.alpha!r})'.format(self)
 
     # --------------------------------------------------------------------------
     def __str__(self):
-        return 'Well(z={0.z!s},Q={0.Q!s},r={0.r!s})'.format(self)
+        return 'UniformFlow(Qo={0.Qo!s},alpha={0.alpha!s})'.format(self)
 
     # --------------------------------------------------------------------------
     def complex_potential(self, z: complex) -> complex:
         """
-        Well's complex potential at location <z>.
+        UniformFlow's complex potential at location <z>.
 
-        Return the well's contribution to the complex potential,
+        Return the uniform flow's contribution to the complex potential,
         Omega(z) [L^3/T], evaluated at location <z>.
 
         Arguments:
@@ -67,23 +57,18 @@ class Well(AnalyticElement):
             complex: complex potential at location <z> [L^3/T].
 
         Notes:
-        -   If the location <z> is inside the radius of the well, the
-            complex potential at the radius of the well is returned.
+        -   The location <z> does not make any difference for uniform flow.
 
         """
-        zz = z - self.z
-        if abs(zz) >= self.r:
-            Omega = self.Q/(2*cmath.pi) * cmath.log(zz)
-        else:
-            Omega = self.Q/(2*cmath.pi) * cmath.log(self.r)
+        Omega = -self.Qo * cmath.exp(-complex(0, self.alpha)) * z
         return Omega
 
     # --------------------------------------------------------------------------
     def complex_discharge(self, z: complex) -> complex:
         """
-        Well's complex discharge at location <z>.
+        UniformFlow's complex discharge at location <z>.
 
-        Return the well's contribution to the complex discharge
+        Return the unifrm flow's contribution to the complex discharge
         function, W(z) [L^2/T], at location <z>.
 
         Arguments:
@@ -93,36 +78,27 @@ class Well(AnalyticElement):
             complex: complex discharge at location <z> [L^2/T].
 
         Notes:
-        -   If the location <z> is inside the radius of the well, math.nan
-            is returned.
+        -   The location <z> does not make any difference for uniform flow.
 
         """
-        zz = z - self.z
-        if abs(zz) >= self.r:
-            W = -self.Q/(2*cmath.pi) / zz
-        else:
-            W = complex(cmath.nan, cmath.nan)
+        W = self.Qo * cmath.exp(-complex(0, self.alpha))
         return W
 
     # --------------------------------------------------------------------------
     def abstraction(self):
         """
-        Well's abstraction from the aquifer.
-
-        Return the well's abstraction from the aquifer. The abstraction is the
-        total quantity of water removed from the aquifer by the well per unit
-        time [L^3/T].
+        UniformFlow's abstraction from the aquifer.
 
         Returns:
             float: abstraction from the aquifer [L^3/T].
 
         """
-        return self.Q
+        return float(0)
 
     # --------------------------------------------------------------------------
     def divergence_discharge(self, z: complex) -> float:
         """
-        Well's divergence of the discharge at location <z>.
+        UniformFlow's divergence of the discharge at location <z>.
 
         Arguments:
             z (complex): 'little z' world coordinate location [L].
@@ -131,21 +107,15 @@ class Well(AnalyticElement):
             float: divergence of the discharge at location <z> [L/T].
 
         Notes:
-        -   If the location <z> is inside the radius of the well, math.nan
-            is returned.
+        -   The divergence of the discharge for UniformFlow is 0 everywhere.
 
         """
-        zz = z - self.z
-        if abs(zz) >= self.r:
-            div = float(0)
-        else:
-            div = cmath.nan
-        return div
+        return float(0)
 
     # --------------------------------------------------------------------------
     def jacobian_potential(self, z: complex) -> complex:
         """
-        Well's Jacobian matrix of the complex potential for the free
+        UniformFlow's Jacobian matrix of the complex potential for the free
         parameters
 
         Return the analytic element's dOmega/dP at location <z>.
@@ -157,7 +127,7 @@ class Well(AnalyticElement):
             numpy.array of complex128: empty array.
 
         Notes:
-        -   The well has no free parameters, so there are no derivatives.
+        -   Uniform flow has no free parameters, so there are no derivatives.
 
         """
         return numpy.array([], dtype=numpy.complex128)
@@ -165,7 +135,7 @@ class Well(AnalyticElement):
     # --------------------------------------------------------------------------
     def jacobian_discharge(self, z: complex) -> complex:
         """
-        Well's Jacobian matrix of the complex potential for the free
+        UniformFlow's Jacobian matrix of the complex potential for the free
         parameters
 
         Return the analytic element's dOmega/dP at location <z>.
@@ -178,7 +148,7 @@ class Well(AnalyticElement):
 
         Notes
         -----
-        -   The well has no free parameters, so there are no derivatives.
+        -   Uniform flow has no free parameters, so there are no derivatives.
 
         """
         return numpy.array([], dtype=numpy.complex128)
