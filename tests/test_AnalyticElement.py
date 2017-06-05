@@ -8,12 +8,7 @@ class TestAnalyticElement(unittest.TestCase):
     # --------------------------------------------------------------------------
     def test_must_not_instantiate(self):
         """Test must not instantiate an AnalyticElement."""
-        try:
-            AnalyticElement()
-        except TypeError:
-            pass
-        else:
-            self.fail('Did not catch the TypeError.')
+        self.assertRaises(TypeError, AnalyticElement)
 
 
 if __name__ == '__main__':

@@ -3,7 +3,8 @@ Well class for the Ginebig project.
 
 Raises:
     well.Error: Base class for all exceptions raised by this module.
-    well.InvalidRadius: The specified well radius was not strictly positive.
+    well.InvalidRadiusError: The specified well radius was not strictly
+        positive.
 """
 
 import cmath
@@ -18,7 +19,7 @@ class Error(Exception):
     """Base class for all exceptions raised by this module."""
 
 
-class InvalidRadius(Error):
+class InvalidRadiusError(Error):
     """The specified well radius was not strictly positive."""
 
 
@@ -37,7 +38,7 @@ class Well(AnalyticElement):
 
         """
         if r < numpy.finfo(float).eps:
-            raise InvalidRadius
+            raise InvalidRadiusError
 
         self.z = z
         self.Q = Q
