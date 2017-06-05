@@ -1,8 +1,9 @@
 import unittest
 import cmath
 import numpy
+
 from ginebig.analytic_element import AnalyticElement
-from ginebig.well import Well
+from ginebig.well import Well, InvalidRadius
 
 
 class TestWell(unittest.TestCase):
@@ -27,6 +28,13 @@ class TestWell(unittest.TestCase):
         self.assertAlmostEqual(w.z, complex(1, 2))
         self.assertAlmostEqual(w.Q, 3)
         self.assertAlmostEqual(w.r, 4)
+
+        try:
+            Well(complex(1, 2), 3, -1)
+        except InvalidRadius:
+            pass
+        else:
+            self.assertFalse('Failed to catch the invalid radius.')
 
     # --------------------------------------------------------------------------
     def test_complex_potential(self):

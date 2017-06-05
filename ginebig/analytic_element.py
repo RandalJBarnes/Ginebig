@@ -1,18 +1,14 @@
 """
-Define the abstract base class AnalyticElement.
+Abstract base class AnalyticElement.
 
 The abstract base class AnalyticElement, defined in this module, serves as
 the base class for ALL analytic elements in the Ginebig project.
 
-Notes
------
-
+Notes:
 -   The notation, terminology, and formulation used in this project
     are based on Strack 1989 and on an pre-release version of Strack 2017.
 
-References
-----------
-
+References:
 -   Otto D. L. Strack, 1989, Groundwater Mechanics, Prentice-Hall, Inc.,
     732 pp., ISBN-10: 0133654125.
 
@@ -30,8 +26,7 @@ class AnalyticElement(abc.ABC):
     """
     Abstract base class for all analytic elements.
 
-    Required Methods
-    ----------------
+    Required Methods:
         def complex_potential(self, z)
         def complex_discharge(self, z)
         def abstraction(self)
@@ -50,16 +45,13 @@ class AnalyticElement(abc.ABC):
         Return the analytic element's contribution to the complex potential,
         Omega(z) [L^3/T], evaluated at location <z>.
 
-        Arguments
-        ---------
-        z (complex): 'little z' world coordinate location [L].
+        Arguments:
+            z (complex): 'little z' world coordinate location [L].
 
-        Returns
-        -------
-        complex: complex potential at location <z> [L^3/T].
+        Returns:
+            complex: complex potential at location <z> [L^3/T].
 
-        Notes
-        -----
+        Notes:
         -   The complex potential is defined by Omega(z) = Phi(z) + i*Psi(z),
             where Phi(z) is the discharge potential [L^3/T], and Psi(z) is the
             stream function [L^3/T].
@@ -80,16 +72,13 @@ class AnalyticElement(abc.ABC):
         Return the analytic element's contribution to the complex discharge
         function, W(z) [L^2/T], at location <z>.
 
-        Arguments
-        ---------
-        z (complex): 'little z' world coordinate location [L].
+        Arguments:
+            z (complex): 'little z' world coordinate location [L].
 
-        Returns
-        -------
-        complex: complex discharge at location <z> [L^2/T].
+        Returns:
+            complex: complex discharge at location <z> [L^2/T].
 
-        Notes
-        -----
+        Notes:
         -   The complex discharge is defined by W(z) = Qx(z) - i*Qy(z),
             where Qx is the x-component of the vertically integrated specific
             discharge [L^2/T], and Qy is the y-component of the vertically
@@ -108,12 +97,10 @@ class AnalyticElement(abc.ABC):
         abstraction is the total quantity of water removed from the aquifer
         by the element per unit time [L^3/T].
 
-        Returns
-        -------
-        float: abstraction from the aquifer [L^3/T].
+        Returns:
+            float: abstraction from the aquifer [L^3/T].
 
-        Notes
-        -----
+        Notes:
         -   For example, the discharge from a well or the integrated discharge
             along a line sink are abstrations.
 
@@ -129,16 +116,13 @@ class AnalyticElement(abc.ABC):
         The divergence of the discharge is the accretion at a point: the volume
         added to the aquifer per unit area [L/T].
 
-        Arguments
-        ---------
-        z (complex): 'little z' world coordinate location [L].
+        Arguments:
+            z (complex): 'little z' world coordinate location [L].
 
-        Returns
-        -------
-        float: divergence of the discharge at location <z> [L/T].
+        Returns:
+            float: divergence of the discharge at location <z> [L/T].
 
-        Notes
-        -----
+        Notes:
         -   The divergence of the discharge is the negative of the Laplacian
             of the discharge potential.
 
@@ -154,21 +138,16 @@ class AnalyticElement(abc.ABC):
 
         Return the analytic element's dOmega/dP at location <z>.
 
-        Arguments
-        ---------
-        z (complex): 'little z' world coordinate location [L].
+        Arguments:
+            z (complex): 'little z' world coordinate location [L].
 
         Returns
-        -------
+            TODO: actually explain this method.
 
-
-        Notes
-        -----
+        Notes:
         -   If either the discharge potential or the stream function does not
             exist for the element (e.g. the stream function does not exist for
             areal accretion), then the missing component is set to NaN.
-
-        -   TODO: actually explain this method.
 
         """
         raise NotImplementedError('"jacobian_potential" is not implemented.')
@@ -182,17 +161,11 @@ class AnalyticElement(abc.ABC):
 
         Return the analytic element's dW/dP at locations <z>.
 
-        Arguments
-        ---------
-        z (complex): 'little z' world coordinate location [L].
+        Arguments:
+            z (complex): 'little z' world coordinate location [L].
 
-        Returns
-        -------
-
-
-        Notes
-        -----
-        -   TODO: actually explain this method.
+        Returns:
+            TODO: actually explain this method.
 
         """
         raise NotImplementedError('"jacobian_discharge" is not implemented.')

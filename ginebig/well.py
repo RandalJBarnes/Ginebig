@@ -1,15 +1,28 @@
 """
 Well class for the Ginebig project.
+
+Raises:
+    well.Error: Base class for all exceptions raised by this module.
+    well.InvalidRadius: The specified well radius was not strictly positive.
 """
 
 import cmath
 import numpy
-
 from ginebig.analytic_element import AnalyticElement
 
 __version__ = '05 June 2017'
 
 
+# ------------------------------------------------------------------------------
+class Error(Exception):
+    """Base class for all exceptions raised by this module."""
+
+
+class InvalidRadius(Error):
+    """The specified well radius was not strictly positive."""
+
+
+# ------------------------------------------------------------------------------
 class Well(AnalyticElement):
 
     # --------------------------------------------------------------------------
@@ -17,14 +30,14 @@ class Well(AnalyticElement):
         """
         Intialize the attributes with minimal validation.
 
-        Arguments
-        ---------
+        Arguments:
            z (complex): 'little z' world coordinate location [L].
            Q (float): well discharge [L^3/T].
            r (float): well radius [L].
 
         """
-        assert(r > numpy.finfo(float).eps)
+        if r < numpy.finfo(float).eps:
+            raise InvalidRadius
 
         self.z = z
         self.Q = Q
@@ -38,16 +51,13 @@ class Well(AnalyticElement):
         Return the well's contribution to the complex potential,
         Omega(z) [L^3/T], evaluated at location <z>.
 
-        Arguments
-        ---------
-        z (complex): 'little z' world coordinate location [L].
+        Arguments:
+            z (complex): 'little z' world coordinate location [L].
 
-        Returns
-        -------
-        complex: complex potential at location <z> [L^3/T].
+        Returns:
+            complex: complex potential at location <z> [L^3/T].
 
-        Notes
-        -----
+        Notes:
         -   The complex potential is defined by Omega(z) = Phi(z) + i*Psi(z),
             where Phi(z) is the discharge potential [L^3/T], and Psi(z) is the
             stream function [L^3/T].
@@ -71,16 +81,13 @@ class Well(AnalyticElement):
         Return the well's contribution to the complex discharge
         function, W(z) [L^2/T], at location <z>.
 
-        Arguments
-        ---------
-        z (complex): 'little z' world coordinate location [L].
+        Arguments:
+            z (complex): 'little z' world coordinate location [L].
 
-        Returns
-        -------
-        complex: complex discharge at location <z> [L^2/T].
+        Returns:
+            complex: complex discharge at location <z> [L^2/T].
 
-        Notes
-        -----
+        Notes:
         -   The complex discharge is defined by W(z) = Qx(z) - i*Qy(z),
             where Qx is the x-component of the vertically integrated specific
             discharge [L^2/T], and Qy is the y-component of the vertically
@@ -106,9 +113,8 @@ class Well(AnalyticElement):
         total quantity of water removed from the aquifer by the well per unit
         time [L^3/T].
 
-        Returns
-        -------
-        float: abstraction from the aquifer [L^3/T].
+        Returns:
+            float: abstraction from the aquifer [L^3/T].
 
         """
         return self.Q
@@ -121,16 +127,13 @@ class Well(AnalyticElement):
         The divergence of the discharge is the accretion at a point: the volume
         added to the aquifer per unit area [L/T].
 
-        Arguments
-        ---------
-        z (complex): 'little z' world coordinate location [L].
+        Arguments:
+            z (complex): 'little z' world coordinate location [L].
 
-        Returns
-        -------
-        float: divergence of the discharge at location <z> [L/T].
+        Returns:
+            float: divergence of the discharge at location <z> [L/T].
 
-        Notes
-        -----
+        Notes:
         -   The divergence of the discharge is the negative of the Laplacian
             of the discharge potential.
 
@@ -153,17 +156,14 @@ class Well(AnalyticElement):
 
         Return the analytic element's dOmega/dP at location <z>.
 
-        Arguments
-        ---------
-        z (complex): 'little z' world coordinate location [L].
+        Arguments:
+            z (complex): 'little z' world coordinate location [L].
 
-        Returns
-        -------
-        numpy.array of complex128: empty array.
+        Returns:
+            numpy.array of complex128: empty array.
 
-        Notes
-        -----
-        -   The well has no free parameters.
+        Notes:
+        -   The well has no free parameters, so there are no derivatives.
 
         """
         return numpy.array([], dtype=numpy.complex128)
@@ -176,17 +176,15 @@ class Well(AnalyticElement):
 
         Return the analytic element's dOmega/dP at location <z>.
 
-        Arguments
-        ---------
-        z (complex): 'little z' world coordinate location [L].
+        Arguments:
+            z (complex): 'little z' world coordinate location [L].
 
-        Returns
-        -------
-        numpy.array of complex128: empty array.
+        Returns:
+            numpy.array of complex128: empty array.
 
         Notes
         -----
-        -   The well has no free parameters.
+        -   The well has no free parameters, so there are no derivatives.
 
         """
         return numpy.array([], dtype=numpy.complex128)
