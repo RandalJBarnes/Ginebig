@@ -6,8 +6,8 @@ class TestAnalyticElement(unittest.TestCase):
     """Test the AnalyticElement class."""
 
     # --------------------------------------------------------------------------
-    def test_cannot_instantiate(self):
-        """Test cannot instantiate an AnalyticElement."""
+    def test_must_not_instantiate(self):
+        """Test must not instantiate an AnalyticElement."""
         try:
             AnalyticElement()
         except TypeError:

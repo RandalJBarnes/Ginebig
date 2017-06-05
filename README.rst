@@ -2,13 +2,13 @@
 Ginebig
 =======
 
-A single-layer, steady-state, object-oriented, Analytic Element-based groundwater modeling framework.
+An object-oriented, steady-state groundwater modeling framework for a single, homogeneous, isotropic aquifer using the Analytic Element Method.
 
 
 Description
 ===========
 
-A single-layer, steady-state, object-oriented, Analytic Element-based groundwater modeling framework.
+An object-oriented, steady-state groundwater modeling framework for a single, homogeneous, isotropic aquifer using the Analytic Element Method.
 
 
 Notes

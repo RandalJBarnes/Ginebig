@@ -4,13 +4,11 @@ Define the abstract base class AnalyticElement.
 The abstract base class AnalyticElement, defined in this module, serves as
 the base class for ALL analytic elements in the Ginebig project.
 
-
 Notes
 -----
 
 -   The notation, terminology, and formulation used in this project
     are based on Strack 1989 and on an pre-release version of Strack 2017.
-
 
 References
 ----------
@@ -25,6 +23,8 @@ References
 
 import abc
 
+__version__ = '05 June 2017'
+
 
 class AnalyticElement(abc.ABC):
     """
@@ -32,109 +32,167 @@ class AnalyticElement(abc.ABC):
 
     Required Methods
     ----------------
-        def potential(self, z)
-        def discharge(self, z)
-        def total_discharge(self)
+        def complex_potential(self, z)
+        def complex_discharge(self, z)
+        def abstraction(self)
+        def divergence_discharge(self, z)
         def jacobian_potential(self, z)
         def jacobian_discharge(self, z)
+
     """
 
     # --------------------------------------------------------------------------
     @abc.abstractmethod
-    def potential(self, z):
-        """Complex potential at locations <z>.
+    def complex_potential(self, z: complex) -> complex:
+        """
+        Element's complex potential at location <z>.
 
         Return the analytic element's contribution to the complex potential,
-        Omega(z) [L^3/T], evaluated at locations <z>.
+        Omega(z) [L^3/T], evaluated at location <z>.
 
         Arguments
         ---------
-        z : numpy:array of complex128
-            -   (PxQ) matrix of locations in "little z" world coordinates.
-            -   <z> may be empty.
-            -   [L]
+        z (complex): 'little z' world coordinate location [L].
 
         Returns
         -------
-        Omega : numpy:array of complex128
-            -   (PxQ) matrix of complex potentials at the <z> locations.
-            -   If <z> is empty, then so is <Omega>.
-            -   [L^3/T]
+        complex: complex potential at location <z> [L^3/T].
 
         Notes
         -----
-        o   If either the discharge potential or the stream function does
+        -   The complex potential is defined by Omega(z) = Phi(z) + i*Psi(z),
+            where Phi(z) is the discharge potential [L^3/T], and Psi(z) is the
+            stream function [L^3/T].
+
+        -   If either the discharge potential or the stream function does
             not exist for the element (e.g. a regional recharge element has
             no stream function) the missing component is set to NaN.
+
         """
-        raise NotImplementedError('"potential" must be implemented.')
+        raise NotImplementedError('"complex_potential" is not implemented.')
 
     # --------------------------------------------------------------------------
     @abc.abstractmethod
-    def discharge(self, z):
-        """Complex discharge at locations <z>.
+    def complex_discharge(self, z: complex) -> complex:
+        """
+        Element's complex discharge at location <z>.
 
         Return the analytic element's contribution to the complex discharge
-        function, W(z) [L^2/T], at locations <z>.
+        function, W(z) [L^2/T], at location <z>.
 
         Arguments
         ---------
-        z : numpy:array of complex128
-            -   (PxQ) matrix of locations in "little z" world coordinates.
-            -   <z> may be empty.
-            -   [L]
+        z (complex): 'little z' world coordinate location [L].
 
         Returns
         -------
-        W : numpy:array of complex128
-            -   (PxQ) matrix of complex discharges at the <z> locations.
-            -   If <z> is empty, then so is <W>.
-            -   [L^2/T]
+        complex: complex discharge at location <z> [L^2/T].
+
+        Notes
+        -----
+        -   The complex discharge is defined by W(z) = Qx(z) - i*Qy(z),
+            where Qx is the x-component of the vertically integrated specific
+            discharge [L^2/T], and Qy is the y-component of the vertically
+            integrated specific discharge [L^2/T].
+
         """
-        raise NotImplementedError('"discharge" must be implemented.')
+        raise NotImplementedError('"complex_discharge" is not implemented.')
 
     # --------------------------------------------------------------------------
     @abc.abstractmethod
-    def total_discharge(self):
-        """Total discharge from the aquifer.
+    def abstraction(self) -> float:
+        """
+        Element's abstraction from the aquifer.
 
-        Return the analytic element's total discharge from the aquifer;
-        e.g. the discharge from a well or the integrated discharge along a
-        line sink.
+        Return the analytic element's abstraction from the aquifer. The
+        abstraction is the total quantity of water removed from the aquifer
+        by the element per unit time [L^3/T].
+
+        Returns
+        -------
+        float: abstraction from the aquifer [L^3/T].
+
+        Notes
+        -----
+        -   For example, the discharge from a well or the integrated discharge
+            along a line sink are abstrations.
+
+        """
+        raise NotImplementedError('"abstraction" is not implemented.')
+
+    # --------------------------------------------------------------------------
+    @abc.abstractmethod
+    def divergence_discharge(self, z: complex) -> float:
+        """
+        Element's divergence of the discharge at location <z>.
+
+        The divergence of the discharge is the accretion at a point: the volume
+        added to the aquifer per unit area [L/T].
 
         Arguments
         ---------
+        z (complex): 'little z' world coordinate location [L].
 
         Returns
         -------
-        Q : float64
-            -   total discharge from the aquifer.
-            -   [L^3/T].
+        float: divergence of the discharge at location <z> [L/T].
+
+        Notes
+        -----
+        -   The divergence of the discharge is the negative of the Laplacian
+            of the discharge potential.
+
         """
-        raise NotImplementedError('"total_discharge" must be implemented.')
+        raise NotImplementedError('"divergence_discharge" not implemented.')
 
     # --------------------------------------------------------------------------
     @abc.abstractmethod
-    def jacobian_potential(self, z):
-        """Jacobian of the complex potential.
-
-        Return the analytic element's dOmega/dP at locations <z>.
-
-        If either the discharge potential or the stream function does not
-        exist for the element (e.g. the stream function does not exist for
-        areal accretion), then the missing component is set to NaN.
-
-        TODO: actually explain this method.
+    def jacobian_potential(self, z: complex):
         """
-        raise NotImplementedError('"jacobian_potential" must be implemented.')
+        Element's Jacobian matrix of the complex potential for the free
+        parameters
+
+        Return the analytic element's dOmega/dP at location <z>.
+
+        Arguments
+        ---------
+        z (complex): 'little z' world coordinate location [L].
+
+        Returns
+        -------
+
+
+        Notes
+        -----
+        -   If either the discharge potential or the stream function does not
+            exist for the element (e.g. the stream function does not exist for
+            areal accretion), then the missing component is set to NaN.
+
+        -   TODO: actually explain this method.
+
+        """
+        raise NotImplementedError('"jacobian_potential" is not implemented.')
 
     # --------------------------------------------------------------------------
     @abc.abstractmethod
-    def jacobian_discharge(self, z):
-        """Jacobian of the complex discharge.
+    def jacobian_discharge(self, z: complex):
+        """
+        Element's Jacobian matrix of the complex discharge for the free
+        parameters
 
         Return the analytic element's dW/dP at locations <z>.
 
-        TODO: actually explain this method.
+        Arguments
+        ---------
+        z (complex): 'little z' world coordinate location [L].
+
+        Returns
+        -------
+
+
+        Notes
+        -----
+        -   TODO: actually explain this method.
+
         """
-        raise NotImplementedError('"jacobian_discharge" must be implemented.')
+        raise NotImplementedError('"jacobian_discharge" is not implemented.')
