@@ -26,15 +26,37 @@ class AnalyticElement(abc.ABC):
     """
     Abstract base class for all analytic elements.
 
-    Required Methods:
+    Concrete methods:
+        def activate(self)
+        def deactivate(self)
+        def isactive(self)
+
+    Required abstract methods:
         def complex_potential(self, z)
         def complex_discharge(self, z)
+
         def abstraction(self)
+
         def divergence_discharge(self, z)
         def jacobian_potential(self, z)
         def jacobian_discharge(self, z)
 
+        def solve(self, root)
+        def boundary_conditions(self, root)
+
     """
+
+    # --------------------------------------------------------------------------
+    def activate(self):
+        self.active = True
+
+    # --------------------------------------------------------------------------
+    def deactivate(self):
+        self.active = False
+
+    # --------------------------------------------------------------------------
+    def isactive(self):
+        return self.active
 
     # --------------------------------------------------------------------------
     @abc.abstractmethod
@@ -169,3 +191,13 @@ class AnalyticElement(abc.ABC):
 
         """
         raise NotImplementedError('"jacobian_discharge" is not implemented.')
+
+    # --------------------------------------------------------------------------
+    @abc.abstractmethod
+    def solve(self, root, geo):
+        raise NotImplementedError('"solve" is not implemented.')
+
+    # --------------------------------------------------------------------------
+    @abc.abstractmethod
+    def boundary_conditions(self, root, geo):
+        raise NotImplementedError('"boundary_conditions" is not implemented.')
