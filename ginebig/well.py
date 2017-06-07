@@ -1,17 +1,16 @@
-"""
-Well class for the Ginebig project.
+"""<well.py> implements the Well class.
 
-Raises:
-    well.Error: Base class for all exceptions raised by this module.
-    well.InvalidRadiusError: The specified well radius was not strictly
-        positive.
+This file is part of the Ginebig Project and is distributed under the
+BSD-3-Clause license. See the accompanying LICENSE.txt file.
+
+Copyright (c) 2017, Randal J. Barnes
 """
 
 import cmath
 import numpy
 from ginebig.analytic_element import AnalyticElement
 
-__version__ = '05 June 2017'
+__version__ = '06 June 2017'
 
 
 # ------------------------------------------------------------------------------
@@ -36,6 +35,11 @@ class Well(AnalyticElement):
            Q (float): well discharge [L^3/T].
            r (float): well radius [L].
 
+        Raises:
+            well.Error: Base class for all exceptions raised by this
+                module.
+            well.InvalidRadiusError: The specified well radius was not
+                strictly positive.
         """
         if r < numpy.finfo(float).eps:
             raise InvalidRadiusError
