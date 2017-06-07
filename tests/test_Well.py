@@ -84,26 +84,11 @@ class TestWell(unittest.TestCase):
         self.assertTrue(cmath.isnan(div))
 
     # --------------------------------------------------------------------------
-    def test_jacobian_potential(self):
-        """Test jacobian potential."""
+    def test_solve(self):
+        """Test solve."""
 
-        zo = complex(10, 10)
-        we = Well(zo, 2*cmath.pi, 1)
-
-        z = complex(10, 20)
-        jac = Well.jacobian_discharge(we, z)
-        self.assertTrue(numpy.size(jac) == 0)
-
-    # --------------------------------------------------------------------------
-    def test_jacobian_discharge(self):
-        """Test jacobian discharge."""
-
-        zo = complex(10, 10)
-        we = Well(zo, 2*cmath.pi, 1)
-
-        z = complex(10, 20)
-        jac = Well.jacobian_discharge(we, z)
-        self.assertTrue(numpy.size(jac) == 0)
+        # TODO: Add a test.
+        pass
 
 
 if __name__ == '__main__':

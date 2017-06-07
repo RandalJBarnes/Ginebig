@@ -73,24 +73,11 @@ class TestUniformFlow(unittest.TestCase):
         self.assertAlmostEqual(div, float(0))
 
     # --------------------------------------------------------------------------
-    def test_jacobian_potential(self):
-        """Test jacobian potential."""
+    def test_solve(self):
+        """Test solve."""
 
-        uf = UniformFlow(2, cmath.pi/6)
-
-        z = complex(10, 20)
-        jac = UniformFlow.jacobian_discharge(uf, z)
-        self.assertTrue(numpy.size(jac) == 0)
-
-    # --------------------------------------------------------------------------
-    def test_jacobian_discharge(self):
-        """Test jacobian discharge."""
-
-        uf = UniformFlow(2, cmath.pi/6)
-
-        z = complex(10, 20)
-        jac = UniformFlow.jacobian_discharge(uf, z)
-        self.assertTrue(numpy.size(jac) == 0)
+        # TODO: Add a test.
+        pass
 
 
 if __name__ == '__main__':

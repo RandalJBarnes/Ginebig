@@ -1,14 +1,14 @@
-"""
-ReferencePoint class for the Ginebig project.
+"""<reference_point.py> implements the ReferencePoint class.
 
-Raises:
-    reference point.Error: Base class for all exceptions raised by this module.
+This file is part of the Ginebig Project and is distributed under the
+BSD-3-Clause license. See the accompanying LICENSE.txt file.
+
+Copyright (c) 2017, Randal J. Barnes
 """
 
-import numpy
 from ginebig.analytic_element import AnalyticElement
 
-__version__ = '05 June 2017'
+__version__ = '07 June 2017'
 
 
 # ------------------------------------------------------------------------------
@@ -105,44 +105,7 @@ class ReferencePoint(AnalyticElement):
         return float(0)
 
     # --------------------------------------------------------------------------
-    def jacobian_potential(self, z: complex) -> complex:
+    def solve(self, geo, root):
         """
-        ReferencePoint's Jacobian matrix of the complex potential for the free
-        parameters
-
-        Return the analytic element's dOmega/dP at location <z>.
-
-        Arguments:
-            z (complex): 'little z' world coordinate location [L].
-
-        Returns:
-            numpy.array of complex128: empty array.
-
-        Notes:
-        -   The reference point has no free parameters, so there are no
-            derivatives.
-
         """
-        return numpy.array([], dtype=numpy.complex128)
-
-    # --------------------------------------------------------------------------
-    def jacobian_discharge(self, z: complex) -> complex:
-        """
-        ReferencePoint's Jacobian matrix of the complex potential for the free
-        parameters
-
-        Return the analytic element's dOmega/dP at location <z>.
-
-        Arguments:
-            z (complex): 'little z' world coordinate location [L].
-
-        Returns:
-            numpy.array of complex128: empty array.
-
-        Notes
-        -----
-        -   The reference point has no free parameters, so there are no
-            derivatives.
-
-        """
-        return numpy.array([], dtype=numpy.complex128)
+        raise NotImplementedError('"solve" is not yet implemented.')

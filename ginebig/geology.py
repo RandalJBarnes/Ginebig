@@ -8,7 +8,7 @@ Copyright (c) 2017, Randal J. Barnes
 
 import math
 
-__version__ = '06 June 2017'
+__version__ = '07 June 2017'
 
 
 # ------------------------------------------------------------------------------

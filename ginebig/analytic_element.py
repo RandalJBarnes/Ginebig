@@ -1,30 +1,32 @@
-"""
-Abstract base class AnalyticElement.
+"""<analytic_element.py> implements the AnalyticElement class.
 
-The abstract base class AnalyticElement, defined in this module, serves as
-the base class for ALL analytic elements in the Ginebig project.
+This file is part of the Ginebig Project and is distributed under the
+BSD-3-Clause license. See the accompanying LICENSE.txt file.
 
-Notes:
--   The notation, terminology, and formulation used in this project
-    are based on Strack 1989 and on an pre-release version of Strack 2017.
-
-References:
--   Otto D. L. Strack, 1989, Groundwater Mechanics, Prentice-Hall, Inc.,
-    732 pp., ISBN-10: 0133654125.
-
--   Otto D. L. Strack, 2017, Analytical Groundwater Mechanics,  Cambridge
-    University Press, 454 pp., ISBN-10: 1107148839.
-
+Copyright (c) 2017, Randal J. Barnes
 """
 
 import abc
 
-__version__ = '05 June 2017'
+__version__ = '07 June 2017'
 
 
 class AnalyticElement(abc.ABC):
-    """
-    Abstract base class for all analytic elements.
+    """Abstract base class for all analytic elements.
+
+    The abstract base class AnalyticElement, defined in this module, serves
+    as the base class for ALL analytic elements in the Ginebig project.
+
+    Notes:
+    -   The notation, terminology, and formulation used in this project
+        are based on Strack 1989 and on an pre-release version of Strack 2017.
+
+    References:
+    -   Otto D. L. Strack, 1989, Groundwater Mechanics, Prentice-Hall, Inc.,
+        732 pp., ISBN-10: 0133654125.
+
+    -   Otto D. L. Strack, 2017, Analytical Groundwater Mechanics,  Cambridge
+        University Press, 454 pp., ISBN-10: 1107148839.
 
     Concrete methods:
         def activate(self)
@@ -36,14 +38,8 @@ class AnalyticElement(abc.ABC):
         def complex_discharge(self, z)
 
         def abstraction(self)
-
         def divergence_discharge(self, z)
-        def jacobian_potential(self, z)
-        def jacobian_discharge(self, z)
-
-        def solve(self, root)
-        def boundary_conditions(self, root)
-
+        def solve(self, geo, root)
     """
 
     # --------------------------------------------------------------------------
@@ -153,51 +149,7 @@ class AnalyticElement(abc.ABC):
 
     # --------------------------------------------------------------------------
     @abc.abstractmethod
-    def jacobian_potential(self, z: complex):
+    def solve(self, geo, root):
         """
-        Element's Jacobian matrix of the complex potential for the free
-        parameters
-
-        Return the analytic element's dOmega/dP at location <z>.
-
-        Arguments:
-            z (complex): 'little z' world coordinate location [L].
-
-        Returns
-            TODO: actually explain this method.
-
-        Notes:
-        -   If either the discharge potential or the stream function does not
-            exist for the element (e.g. the stream function does not exist for
-            areal accretion), then the missing component is set to NaN.
-
         """
-        raise NotImplementedError('"jacobian_potential" is not implemented.')
-
-    # --------------------------------------------------------------------------
-    @abc.abstractmethod
-    def jacobian_discharge(self, z: complex):
-        """
-        Element's Jacobian matrix of the complex discharge for the free
-        parameters
-
-        Return the analytic element's dW/dP at locations <z>.
-
-        Arguments:
-            z (complex): 'little z' world coordinate location [L].
-
-        Returns:
-            TODO: actually explain this method.
-
-        """
-        raise NotImplementedError('"jacobian_discharge" is not implemented.')
-
-    # --------------------------------------------------------------------------
-    @abc.abstractmethod
-    def solve(self, root, geo):
         raise NotImplementedError('"solve" is not implemented.')
-
-    # --------------------------------------------------------------------------
-    @abc.abstractmethod
-    def boundary_conditions(self, root, geo):
-        raise NotImplementedError('"boundary_conditions" is not implemented.')
